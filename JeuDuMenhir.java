@@ -21,7 +21,12 @@ import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -31,7 +36,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 
-public class JeuDuMenhir extends JFrame implements ActionListener{
+public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 
 	private Partie p;
 	
@@ -57,7 +62,6 @@ public class JeuDuMenhir extends JFrame implements ActionListener{
 		gl.setVgap(10); //Cinq pixels d'espace entre les lignes (V comme Vertical) 
 		*/
 		JLabel label = new JLabel("Quel type de partie voulez-vous jouer ?");
-		panel.add(label);
 		label.setBounds(15, 15, 300, 15);
 		
 		setTitle("Initialisation du jeu du MENHIR"); 
@@ -68,13 +72,23 @@ public class JeuDuMenhir extends JFrame implements ActionListener{
 		panel.setBackground(Color.lightGray);
 		
 		
-		Checkbox rapide;
-		panel.add(rapide = new Checkbox("RAPIDE"));
+		Checkbox rapide = new Checkbox("RAPIDE");
 		rapide.setBounds(50, 50, 80, 15);
+		rapide.addItemListener(this);
+		panel.add(rapide);
 		
 		Checkbox avancee;
 		panel.add(avancee = new Checkbox("AVANCEE"));
 		avancee.setBounds(150, 50, 80, 15);
+		avancee.addItemListener(this);
+		
+		public void itemStateChanged(ItemEvent e){
+			if(e.getItem() == rapide){
+				
+			}else if(e.getItem() == avancee){
+				
+			}
+		}
 		
 				
 		JLabel label2 = new JLabel("Combien de joueurs dans la partie ?");
@@ -100,7 +114,12 @@ public class JeuDuMenhir extends JFrame implements ActionListener{
 		btnLancerPartie.setText("LANCER LA PARTIE");
 		panel.add(btnLancerPartie);
 		btnLancerPartie.setBounds(15, 280, 180, 30);
-		btnLancerPartie.addActionListener(this);
+		//btnLancerPartie.addActionListener(this);
+		/*btnLancerPartie.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event){
+				
+			}
+		});*/
 		
 		return panel;
 	}
