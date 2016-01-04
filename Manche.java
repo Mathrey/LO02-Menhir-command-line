@@ -18,7 +18,8 @@ public class Manche {
 		this.saisonEnCours = saisonEnCours;
 	}
 
-	public void distribuerCarteJoueur(Partie p) {
+	public void distribuerCarteJoueur() {
+		Partie p = Partie.getInstance();
 		if (p.getPartieAvancee()) {
 
 			this.initialisationListeCarte();
@@ -28,7 +29,7 @@ public class Manche {
 			for (Iterator<Joueur> it = p.getListeJoueur().iterator(); it
 					.hasNext();) {
 				Joueur joueurActif = it.next();
-				demanderGrainesOuCarteAllie(p, joueurActif);
+				demanderGrainesOuCarteAllie(joueurActif);
 			}
 
 			for (Iterator<Joueur> it = p.getListeJoueur().iterator(); it.hasNext();) {
@@ -54,10 +55,9 @@ public class Manche {
 		}
 	}
 
-	public void demanderGrainesOuCarteAllie(Partie p, Joueur j) {
-		System.out
-				.println(j.getNom()
-						+ " choisissez-vous une carte allié (1) ou deux graines (2)?\n");
+	public void demanderGrainesOuCarteAllie(Joueur j) {
+		Partie p = Partie.getInstance();
+		System.out.println(j.getNom() + " choisissez-vous une carte allié (1) ou deux graines (2)?\n");
 		int choix = 0;
 		do {
 			try {
@@ -80,7 +80,8 @@ public class Manche {
 		} while (choix != 1 && choix != 2);
 	}
 
-	public void attribuerJoueurDeDebut(Partie p) {
+	public void attribuerJoueurDeDebut() {
+		Partie p = Partie.getInstance();
 		Joueur jQuiCommence = null;
 		if (p.getPartieAvancee()) {
 			int ageMini = 130;
@@ -123,11 +124,12 @@ public class Manche {
 		return this.saisonEnCours;
 	}
 
-	public void jouerManche(Partie p) {
+	public void jouerManche() {
+		Partie p = Partie.getInstance();
 		boolean partieAvancee = p.getPartieAvancee();
 		if (partieAvancee) {
-			this.attribuerJoueurDeDebut(p);
-			this.distribuerCarteJoueur(p);
+			this.attribuerJoueurDeDebut();
+			this.distribuerCarteJoueur();
 			System.out.println("\n-----------------\nDébut de la manche "
 					+ p.getMancheNumero() + "!\n");
 
@@ -153,8 +155,8 @@ public class Manche {
 			}
 
 		} else {
-			this.attribuerJoueurDeDebut(p);
-			this.distribuerCarteJoueur(p);
+			this.attribuerJoueurDeDebut();
+			this.distribuerCarteJoueur();
 			System.out.println("\n-----------------\nDébut de la manche!\n");
 
 			for (int i = 0; i < 4; i++) {

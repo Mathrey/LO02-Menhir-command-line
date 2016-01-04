@@ -24,6 +24,19 @@ public class Partie  {
 	private int mancheNumero = 0;
 	private Scanner scanChoix;
 	
+	
+	private static Partie partie = null;
+	
+	public static Partie getInstance(){
+		
+		if(partie == null){
+			partie = new Partie();
+		}
+		
+		return partie;
+	}
+	
+	
 	public Partie(){
 	
 		System.out.println("Partie RAPIDE (0) ou avec des REGLES AVANCEES (1) ?");
@@ -100,7 +113,7 @@ public class Partie  {
 			for (Iterator<Manche> it = listeManche.iterator(); it.hasNext();) {
 				Manche mancheActive = it.next();
 				this.mancheNumero++;
-				mancheActive.jouerManche(this);
+				mancheActive.jouerManche();
 				System.out.println("La manche est terminée.\n");
 
 				for (Iterator<Joueur> it2 = listeJoueur.iterator(); it2.hasNext();) {
@@ -115,7 +128,7 @@ public class Partie  {
 			this.afficherClassement();
 		}else{ 
 			Manche manche = new Manche();
-			manche.jouerManche(this);
+			manche.jouerManche();
 			System.out.println("\nLa partie est terminée.\n");
 			this.afficherGagnants();
 			}
