@@ -84,18 +84,14 @@ public class Partie  {
 				System.out.println("Il doit y avoir au moins 1 et au maximum 5 joueurs virtuels.");
 			}
 		}while(this.nbJVirtuel <0 && this.nbJVirtuel >5);
-<<<<<<< HEAD
 			
 		for (Iterator<Joueur> it2 = this.listeJoueur.iterator(); it2.hasNext();) {
 			Joueur lJoueur = it2.next();
 			lJoueur.setNbGraineDuJoueur(2);			
 		}
 	 */
-=======
 		
 		this.setGrainesJoueurs();
-						
->>>>>>> origin/master
 	}
 		
 
