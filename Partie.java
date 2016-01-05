@@ -233,5 +233,10 @@ public class Partie  {
 			this.listeJoueur.add(new JoueurPhysique());
 		}
 	}
+
+
+	public void setPartieAvancee(boolean partieAvancee) {
+		this.partieAvancee = partieAvancee;
+	}
 		
 }
