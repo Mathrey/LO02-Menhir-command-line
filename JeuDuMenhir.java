@@ -21,12 +21,9 @@ import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -34,24 +31,36 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 
 
-public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener, CaretListener{
+public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private Partie p;
-	
-	Checkbox rapide;
-	Checkbox avancee;
+//	
+//	Checkbox rapide = new Checkbox("RAPIDE");
+//	Checkbox avancee  = new Checkbox("AVANCEE");;
 	
 	String[] nb = { "1", "2", "3", "4", "5" };
 	final JComboBox<Object> nbList = new JComboBox<Object>(nb);
+	JTextField nomJoueur = new JTextField(2);
+	JTextField ageJoueur = new JTextField(2);
+//	JTextField nomJoueur;
+//	JTextField ageJoueur;
+	Checkbox rapide;
+	Checkbox avancee;
+//	JComboBox<Object> nbList;
+	
 	
 	JButton btnLancerPartie = new JButton();
 	
 	public JeuDuMenhir(){
 		super();
+		p = Partie.getInstance();
 		build(); // initialisation de la fenetre
 	}
 	
@@ -60,6 +69,12 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 	}
 	
 	private JPanel buildContentPane(){
+		
+//		String[] nb = { "1", "2", "3", "4", "5" };
+//		final JComboBox<Object> nbList = new JComboBox<Object>(nb);
+//		JTextField nomJoueur = new JTextField(2);
+//		JTextField ageJoueur = new JTextField(2);
+		
 		
 		JPanel panel = new JPanel();
 		//panel.setLayout(new FlowLayout());
@@ -83,12 +98,14 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		
 		// checkbox
 		Checkbox rapide = new Checkbox("RAPIDE");
+		Checkbox avancee = new Checkbox("AVANCEE");
+		//Checkbox rapide = new Checkbox("RAPIDE");
 		rapide.setBounds(50, 50, 80, 15);
 		rapide.addItemListener(this);
 		panel.add(rapide);
 		
 		// checkbox
-		panel.add(avancee = new Checkbox("AVANCEE"));
+		panel.add(avancee);
 		avancee.setBounds(150, 50, 80, 15);
 		avancee.addItemListener(this);
 		
@@ -99,7 +116,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		
 		// combobox
 		nbList.setSelectedIndex(4);
-		nbList.addItemListener(this);
+		nbList.addActionListener(this);
 		panel.add(nbList);
 		nbList.setBounds(50, 120, 80, 25);
 		
@@ -109,10 +126,9 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		label3.setBounds(15, 150, 300, 50);
 		
 		// champ texte
-		JTextField ageJoueur = new JTextField(2);
 		panel.add(ageJoueur);
 		ageJoueur.setBounds(55, 200, 25, 25);
-		ageJoueur.addCaretListener(this);
+		ageJoueur.addActionListener(this);
 		
 		//label
 		JLabel label4 = new JLabel("Quel est votre nom ?");
@@ -120,27 +136,55 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		label4.setBounds(15, 220, 300, 50);
 		
 		// champ texte
-		JTextField nomJoueur = new JTextField(2);
+		nomJoueur.addActionListener(this);
 		panel.add(nomJoueur);
-		nomJoueur.setBounds(25, 270, 100, 25);
-		nomJoueur.addCaretListener(this);
+		nomJoueur.setBounds(55, 270, 100, 25);
+		//nomJoueur.addCaretListener(this);
+		
 		
 		// bouton lancement de partie
 		btnLancerPartie.setText("LANCER LA PARTIE");
+		btnLancerPartie.addActionListener(this);
 		panel.add(btnLancerPartie);
-		btnLancerPartie.setBounds(15, 280, 180, 30);
-		
+		btnLancerPartie.setBounds(15, 320, 180, 30);
+
 		return panel;
 		}
 
+	// /!\ les SYSO ne s'affichent pas lors de l'éxecution...
+	// 		le renvoie des elements entrés par l'utilisateur n'a pas l'air de fonctionner
+	//		peut-être un problème au niveau de la récupération des valeurs qui n'est pas celles attendues 
+	//			ce qui provoquerait un conflit ?
+	// /!\
 		public void actionPerformed(ActionEvent evt) {
-		// problème au niveau du getInstance() ???
-		Object source = evt.getSource();
-		//display.setText((String)combo.getSelectedItem;());
+			
+		Object source = evt.getSource();		
+		
 			if(source == btnLancerPartie){
 				this.p = Partie.getInstance();
-				//Rajouter les passages de paramètres avant de lancer la partie
+				System.out.println("Lancement de la partie");
 				p.lancerPartie(); 
+			}
+			
+			if(source == ageJoueur){
+				//this.p = Partie.getInstance();
+				int aJ = Integer.parseInt(ageJoueur.getText());System.out.println("age du j p : " + aJ);	
+				p.setAgeJPhysique(aJ);
+				
+			}
+			
+			if(source == nomJoueur){
+				//this.p = Partie.getInstance();
+				String nJ = nomJoueur.getText();
+				p.setNomJPhysique(nJ);
+				System.out.println("nom du j p : " + nJ);
+			}
+			
+			if(source == nbList){
+				//this.p = Partie.getInstance();
+				//p.setNbrJoueursVirtuels((Integer) nbList.getSelectedItem());
+				p.setNbrJoueursVirtuels(nbList.getSelectedIndex());
+				System.out.println(nbList.getSelectedIndex());
 			}
 	}
 	
@@ -155,45 +199,16 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 	}
 
 	public void itemStateChanged(ItemEvent e) {
-		if(e.getItem() == rapide){
-			p.setDifficulte(0);
-		}else if(e.getItem() == avancee){
-			p.setDifficulte(1);
-		}
 		
-		if(e.getStateChange() == 1){
-			p.setNbrJoueursVirtuels(e.getStateChange());
-		}else if((e.getStateChange() == 2)){
-			p.setNbrJoueursVirtuels(e.getStateChange());
-		}else if((e.getStateChange() == 3)){
-			p.setNbrJoueursVirtuels(e.getStateChange());
-		}else if((e.getStateChange() == 4)){
-			p.setNbrJoueursVirtuels(e.getStateChange());
-		}else if((e.getStateChange() == 5)){
-			p.setNbrJoueursVirtuels(e.getStateChange());
-		}
-	}
-	
-	/*CaretListener caretupdate = new CaretListener() {
-        public void caretUpdate(javax.swing.event.CaretEvent e) {
-            JTextField text = (JTextField)e.getSource();
-            System.out.println(text.getText());
-        }
-    };*/
+		Object source = e.getSource();
+		
+			if(e.getItem() == rapide){
+				p.setDifficulte(0);
+				System.out.println("partie rapide");
+			}else if(e.getItem() == avancee){
+				p.setDifficulte(1);
+				System.out.println("partie avancee");
+			}
 
-	
-	public void caretUpdate(CaretEvent e) {
-		// différencier les deux evenements différents..
-            int text = e.getMark();
-            // set le nom du joueur dans son attribut
-            // set l'age du joueur 
-            p.setAgeJPhysique(text);
-            
-            /*String textNom = e.getMark();
-            p.setNomJPhysique(textNom);*/
-            
-            
-	}
-    
-    
+	}    
 }

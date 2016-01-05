@@ -237,7 +237,6 @@ public class Partie  {
 			this.listeJoueur.add(new JoueurPhysique());
 		}
 	}
-<<<<<<< HEAD
 
 
 	public void setAgeJPhysique(int ageJPhysique) {
@@ -249,7 +248,6 @@ public class Partie  {
 		this.nomJPhysique = nomJPhysique;
 	}
 	
-=======
 	
 	public void setJoueursPhysiques() {
 		this.listeJoueur.add(new JoueurPhysique());
@@ -261,6 +259,5 @@ public class Partie  {
 			lJoueur.setNbGraineDuJoueur(2);			
 		}
 	}
->>>>>>> origin/master
 	
 }
