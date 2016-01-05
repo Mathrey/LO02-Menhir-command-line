@@ -110,7 +110,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 		
 		JTextField ageJoueur = new JTextField(2);
 		panel.add(ageJoueur);
-		ageJoueur.setBounds(50, 200, 50, 25);
+		ageJoueur.setBounds(55, 200, 25, 25);
 		
 		JLabel label4 = new JLabel("Quel est votre nom ?");
 		panel.add(label4);
@@ -118,7 +118,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 		
 		JTextField nomJoueur = new JTextField(2);
 		panel.add(nomJoueur);
-		nomJoueur.setBounds(50, 270, 50, 25);
+		nomJoueur.setBounds(25, 270, 100, 25);
 		
 		btnLancerPartie.setText("LANCER LA PARTIE");
 		panel.add(btnLancerPartie);
@@ -132,7 +132,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 		// problème au niveau du getInstance() ???
 		Object source = evt.getSource();
 		if(source == btnLancerPartie){
-			Partie p = Partie.getInstance();
+			this.p = Partie.getInstance();
 			//Rajouter les passages de paramètres avant de lancer la partie
 			p.lancerPartie(); 
 		}
