@@ -184,9 +184,11 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 
 	
 	public void caretUpdate(CaretEvent e) {
+		// différencier les deux evenements différents..
             JTextField text = (JTextField)e.getSource();
-            //System.out.println(text.getText());
             // set le nom du joueur dans son attribut
+            // set l'age du joueur 
+            
 	}
     
     
