@@ -82,6 +82,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 		avancee.setBounds(150, 50, 80, 15);
 		avancee.addItemListener(this);
 		
+		// pour récupérer l'event de la checkbox
 		public void itemStateChanged(ItemEvent e){
 			if(e.getItem() == rapide){
 				
