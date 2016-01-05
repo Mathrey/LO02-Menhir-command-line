@@ -46,12 +46,12 @@ public class Partie  {
 				typePartie = getChoix();
 			
 				if(typePartie == 0){
-				this.partieAvancee = false;
+				this.setDifficulte(typePartie);
 				System.out.println("Règles simples.\n");
 				
 				}else{
 					if(typePartie == 1){
-						this.partieAvancee = true;
+						this.setDifficulte(typePartie);
 						System.out.println("Règles avancées.\n");
 					}else{
 						System.out.println("Nombre non valide, veuillez saisir 0 ou 1");
@@ -63,22 +63,19 @@ public class Partie  {
 
 		}while(typePartie != 0 && typePartie != 1);
 		
-		this.nbJPhysique = 1;
-		//this.nbJPhysique = 2;
-		this.listeJoueur.add(new JoueurPhysique());
+		setNbrJoueursPhysiques(1);
+		setJoueursPhysiques(nbJPhysique);
+		//this.nbJPhysique = 1;
 		//this.listeJoueur.add(new JoueurPhysique());
 		
 		System.out.println("Combien y a t'il de joueur(s) virtuel(s) ?");
 		do {
 			try{
 				
-				this.nbJVirtuel = getChoix();
+				setNbrJoueursVirtuels(getChoix());
 			
-				if(nbJVirtuel >= 0 && nbJVirtuel <= 5){
-					for(int i=1; i<= nbJVirtuel; i++){
-						this.listeJoueur.add(new JoueurVirtuel(i));
-					}
-				}
+				setJoueursVirtuels(nbJVirtuel);
+				
 			}catch(InputMismatchException e) {
 				System.out.println("Veuillez entrer un nombre entre 0 et 5.\n");				
 			}catch(IndexOutOfBoundsException e) {
@@ -93,6 +90,7 @@ public class Partie  {
 			
 	}
 		
+
 	public int getNbJPhysique(){
 		return this.nbJPhysique;
 	}
@@ -206,6 +204,34 @@ public class Partie  {
 		scanChoix = new Scanner(System.in);
 		int choix = scanChoix.nextInt();
 		return choix;
-		
 	}
+	
+	public void setDifficulte(int dif) {
+		if (dif == 0) {
+			this.partieAvancee = false;
+		} else if (dif == 1) {
+			this.partieAvancee = true;
+		}
+	}
+	
+	public void setNbrJoueursVirtuels(int nbr) {
+		this.nbJVirtuel = nbr;
+	}
+	
+	public void setJoueursVirtuels(int nbr) {
+		for(int i=1; i<= nbr; i++){
+			this.listeJoueur.add(new JoueurVirtuel(i));
+		}
+	}
+	
+	public void setNbrJoueursPhysiques(int nbr) {
+		this.nbJPhysique = nbr;
+	}
+	
+	public void setJoueursPhysiques(int nbr) {
+		for(int i=1; i<= nbr; i++){
+			this.listeJoueur.add(new JoueurPhysique());
+		}
+	}
+		
 }

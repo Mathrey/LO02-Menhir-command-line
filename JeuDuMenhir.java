@@ -82,7 +82,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener{
 		label2.setBounds(15, 70, 300, 50);
 		
 		String[] nb = { "2", "3", "4", "5", "6" };
-		JComboBox nbList = new JComboBox(nb);
+		JComboBox<Object> nbList = new JComboBox<Object>(nb);
 		nbList.setSelectedIndex(4);
 		nbList.addActionListener(this);
 		panel.add(nbList);
@@ -97,9 +97,17 @@ public class JeuDuMenhir extends JFrame implements ActionListener{
 		panel.add(ageJoueur);
 		ageJoueur.setBounds(50, 200, 50, 25);
 		
+		JLabel label4 = new JLabel("Quel est votre nom ?");
+		panel.add(label4);
+		label4.setBounds(15, 220, 300, 50);
+		
+		JTextField nomJoueur = new JTextField(2);
+		panel.add(nomJoueur);
+		nomJoueur.setBounds(50, 270, 50, 25);
+		
 		btnLancerPartie.setText("LANCER LA PARTIE");
 		panel.add(btnLancerPartie);
-		btnLancerPartie.setBounds(15, 280, 180, 30);
+		btnLancerPartie.setBounds(15, 320, 180, 30);
 		btnLancerPartie.addActionListener(this);
 		
 		return panel;
@@ -110,8 +118,9 @@ public class JeuDuMenhir extends JFrame implements ActionListener{
 		Object source = evt.getSource();
 		if(source == btnLancerPartie){
 			Partie p = Partie.getInstance();
+			//Rajouter les passages de paramètres avant de lancer la partie
 			p.lancerPartie(); 
-		}	
+		}
 	}
 	
 	
