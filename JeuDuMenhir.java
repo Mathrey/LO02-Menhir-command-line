@@ -142,7 +142,6 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 				//Rajouter les passages de paramètres avant de lancer la partie
 				p.lancerPartie(); 
 			}
-
 	}
 	
 	
@@ -185,9 +184,14 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 	
 	public void caretUpdate(CaretEvent e) {
 		// différencier les deux evenements différents..
-            JTextField text = (JTextField)e.getSource();
+            int text = e.getMark();
             // set le nom du joueur dans son attribut
             // set l'age du joueur 
+            p.setAgeJPhysique(text);
+            
+            /*String textNom = e.getMark();
+            p.setNomJPhysique(textNom);*/
+            
             
 	}
     

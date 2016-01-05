@@ -24,6 +24,8 @@ public class Partie  {
 	private int mancheNumero = 0;
 	private Scanner scanChoix;
 	
+	private int ageJPhysique;
+	private String nomJPhysique;
 	
 	private static Partie partie = null;
 	
@@ -38,7 +40,7 @@ public class Partie  {
 	
 	
 	public Partie(){
-	
+	/*
 		System.out.println("Partie RAPIDE (0) ou avec des REGLES AVANCEES (1) ?");
 		int typePartie = -1;
 		do {
@@ -87,7 +89,7 @@ public class Partie  {
 			Joueur lJoueur = it2.next();
 			lJoueur.setNbGraineDuJoueur(2);			
 		}
-			
+	 */
 	}
 		
 
@@ -233,4 +235,16 @@ public class Partie  {
 			this.listeJoueur.add(new JoueurPhysique());
 		}
 	}
+
+
+	public void setAgeJPhysique(int ageJPhysique) {
+		this.ageJPhysique = ageJPhysique;
+	}
+
+
+	public void setNomJPhysique(String nomJPhysique) {
+		this.nomJPhysique = nomJPhysique;
+	}
+	
+	
 }
