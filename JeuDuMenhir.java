@@ -45,6 +45,9 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 	Checkbox rapide;
 	Checkbox avancee;
 	
+	String[] nb = { "1", "2", "3", "4", "5" };
+	final JComboBox<Object> nbList = new JComboBox<Object>(nb);
+	
 	JButton btnLancerPartie = new JButton();
 	
 	public JeuDuMenhir(){
@@ -74,79 +77,71 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		panel.setBackground(Color.lightGray);
 		
+		// label
 		JLabel label = new JLabel("Quel type de partie voulez-vous jouer ?");
 		label.setBounds(15, 15, 300, 15);
 		
+		// checkbox
 		Checkbox rapide = new Checkbox("RAPIDE");
 		rapide.setBounds(50, 50, 80, 15);
 		rapide.addItemListener(this);
 		panel.add(rapide);
 		
-		
+		// checkbox
 		panel.add(avancee = new Checkbox("AVANCEE"));
 		avancee.setBounds(150, 50, 80, 15);
 		avancee.addItemListener(this);
 		
-				
+		// label	
 		JLabel label2 = new JLabel("Combien de joueurs virtuels dans la partie ?");
 		panel.add(label2);
 		label2.setBounds(15, 70, 300, 50);
 		
-		String[] nb = { "1", "2", "3", "4", "5" };
-		final JComboBox<Object> nbList = new JComboBox<Object>(nb);
+		// combobox
 		nbList.setSelectedIndex(4);
-		nbList.addActionListener(this);
+		nbList.addItemListener(this);
 		panel.add(nbList);
 		nbList.setBounds(50, 120, 80, 25);
 		
-		nbList.addActionListener(this);
-		
-		
+		// label
 		JLabel label3 = new JLabel("Quel âge avez-vous ?");
 		panel.add(label3);
 		label3.setBounds(15, 150, 300, 50);
 		
-		
+		// champ texte
 		JTextField ageJoueur = new JTextField(2);
 		panel.add(ageJoueur);
 		ageJoueur.setBounds(55, 200, 25, 25);
 		ageJoueur.addCaretListener(this);
 		
-		
-		
+		//label
 		JLabel label4 = new JLabel("Quel est votre nom ?");
 		panel.add(label4);
 		label4.setBounds(15, 220, 300, 50);
 		
+		// champ texte
 		JTextField nomJoueur = new JTextField(2);
 		panel.add(nomJoueur);
 		nomJoueur.setBounds(25, 270, 100, 25);
 		nomJoueur.addCaretListener(this);
 		
+		// bouton lancement de partie
 		btnLancerPartie.setText("LANCER LA PARTIE");
 		panel.add(btnLancerPartie);
-
 		btnLancerPartie.setBounds(15, 280, 180, 30);
 		
 		return panel;
-	}
+		}
 
-	public void actionPerformed(ActionEvent evt) {
+		public void actionPerformed(ActionEvent evt) {
 		// problème au niveau du getInstance() ???
 		Object source = evt.getSource();
-		if(source == btnLancerPartie){
-			this.p = Partie.getInstance();
-			//Rajouter les passages de paramètres avant de lancer la partie
-			p.lancerPartie(); 
-		}else{
-			
-		}
 		
-		
-		public void actionPerformed(ActionEvent e) {
-			//display.setText((String)combo.getSelectedItem;());
-			p.setNbrJoueursVirtuels(nbList.);
-		}
+			if(source == btnLancerPartie){
+				this.p = Partie.getInstance();
+				//Rajouter les passages de paramètres avant de lancer la partie
+				p.lancerPartie(); 
+			}
 	}
 	
 	
@@ -161,21 +156,21 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 
 	public void itemStateChanged(ItemEvent e) {
 		if(e.getItem() == rapide){
-			p.setPartieAvancee(false);
+			p.setDifficulte(0);
 		}else if(e.getItem() == avancee){
-			p.setPartieAvancee(true);
+			p.setDifficulte(1);
 		}
 		
 		if(e.getStateChange() == 1){
-			
+			p.setNbrJoueursVirtuels(e.getStateChange());
 		}else if((e.getStateChange() == 2)){
-			
+			p.setNbrJoueursVirtuels(e.getStateChange());
 		}else if((e.getStateChange() == 3)){
-			
+			p.setNbrJoueursVirtuels(e.getStateChange());
 		}else if((e.getStateChange() == 4)){
-			
+			p.setNbrJoueursVirtuels(e.getStateChange());
 		}else if((e.getStateChange() == 5)){
-			
+			p.setNbrJoueursVirtuels(e.getStateChange());
 		}
 	}
 	
