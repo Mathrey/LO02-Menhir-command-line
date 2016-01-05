@@ -34,8 +34,8 @@ public class JoueurPhysique extends Joueur {
 			}
 		}while (ageJoueurPhysique < 8 || ageJoueurPhysique > 122);
 		
-		this.age = ageJoueurPhysique;
-		this.nom = nomJPhysique;
+		setAge(ageJoueurPhysique);
+		setNom(nomJPhysique);
 		isJoueurPhysique = true;
 	}
 
@@ -75,6 +75,11 @@ public class JoueurPhysique extends Joueur {
 		scanChoix = new Scanner(System.in);
 		int choix = scanChoix.nextInt();
 		return choix;
+	}
+	
+	
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	
 }

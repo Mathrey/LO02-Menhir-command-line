@@ -145,7 +145,6 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		
 		public void actionPerformed(ActionEvent e) {
 			//display.setText((String)combo.getSelectedItem;());
-			p.setNbrJoueursVirtuels(nbList.);
 		}
 	}
 	
