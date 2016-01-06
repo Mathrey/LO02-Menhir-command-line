@@ -84,18 +84,15 @@ public class Partie  {
 				System.out.println("Il doit y avoir au moins 1 et au maximum 5 joueurs virtuels.");
 			}
 		}while(this.nbJVirtuel <0 && this.nbJVirtuel >5);
-<<<<<<< HEAD
 			
 		for (Iterator<Joueur> it2 = this.listeJoueur.iterator(); it2.hasNext();) {
 			Joueur lJoueur = it2.next();
 			lJoueur.setNbGraineDuJoueur(2);			
 		}
-	 */
-=======
 		
 		this.setGrainesJoueurs();
-						
->>>>>>> origin/master
+		*/
+
 	}
 		
 
@@ -241,8 +238,6 @@ public class Partie  {
 			this.listeJoueur.add(new JoueurPhysique());
 		}
 	}
-<<<<<<< HEAD
-
 
 	public void setAgeJPhysique(int ageJPhysique) {
 		this.ageJPhysique = ageJPhysique;
@@ -253,10 +248,9 @@ public class Partie  {
 		this.nomJPhysique = nomJPhysique;
 	}
 	
-=======
 	
-	public void setJoueursPhysiques() {
-		this.listeJoueur.add(new JoueurPhysique());
+	public void setJoueursPhysiques(int age, String nom) {
+		this.listeJoueur.add(new JoueurPhysique(age, nom));
 	}
 	
 	public void setGrainesJoueurs() {
@@ -265,6 +259,13 @@ public class Partie  {
 			lJoueur.setNbGraineDuJoueur(2);			
 		}
 	}
->>>>>>> origin/master
+	
+	public int getAgeJPhysique() {
+		return this.ageJPhysique;
+	}
+	
+	public String getNomJPhysique() {
+		return this.nomJPhysique;
+	}
 	
 }

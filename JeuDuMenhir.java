@@ -52,6 +52,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 	
 	public JeuDuMenhir(){
 		super();
+		this.p = Partie.getInstance();
 		build(); // initialisation de la fenetre
 	}
 	
@@ -128,7 +129,7 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		// bouton lancement de partie
 		btnLancerPartie.setText("LANCER LA PARTIE");
 		panel.add(btnLancerPartie);
-		btnLancerPartie.setBounds(15, 280, 180, 30);
+		btnLancerPartie.setBounds(15, 320, 180, 30);
 		
 		return panel;
 		}
@@ -138,8 +139,8 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
 		Object source = evt.getSource();
 		//display.setText((String)combo.getSelectedItem;());
 			if(source == btnLancerPartie){
-				this.p = Partie.getInstance();
 				//Rajouter les passages de paramètres avant de lancer la partie
+				p.setJoueursPhysiques(p.getAgeJPhysique(),p.getNomJPhysique());
 				p.lancerPartie(); 
 			}
 	}
@@ -188,11 +189,9 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener,
             // set le nom du joueur dans son attribut
             // set l'age du joueur 
             p.setAgeJPhysique(text);
-            
             /*String textNom = e.getMark();
             p.setNomJPhysique(textNom);*/
-            
-            
+                        
 	}
     
     

@@ -8,6 +8,13 @@ public class JoueurPhysique extends Joueur {
 	private Scanner scanChoix;
 	private Scanner scanNom;
 
+	public JoueurPhysique(int age, String nom) {
+		super();
+		this.isJoueurPhysique = true;
+		this.setAge(age);
+		this.setNom(nom);
+	}
+	
 	public JoueurPhysique() {
 		super();
 		this.isJoueurPhysique = false;
