@@ -89,9 +89,10 @@ public class Partie  {
 			Joueur lJoueur = it2.next();
 			lJoueur.setNbGraineDuJoueur(2);			
 		}
-	 */
+	 
 		
 		this.setGrainesJoueurs();
+	 	*/
 	}
 		
 
@@ -240,6 +241,24 @@ public class Partie  {
 
 
 	public void setAgeJPhysique(int ageJPhysique) {
+		
+		/*do {
+			try {
+				ageJPhysique = getChoix();
+				if (ageJPhysique < 8) {
+					System.out.println("Vous êtes un peu jeune pour jouer! Le jeu du Menhir est pour les 8 ans et plus.\nEntrez un autre âge.\n");
+				}
+				else{
+					if (ageJPhysique > 122) {
+						System.out.println("Vous êtes plus vieux que le record de longévité humaine!\nSérieusement, entrez votre VRAI âge. :)\n");
+					}
+				}
+			}catch(InputMismatchException e) {
+				System.out.println("Merci d'entrer un nombre entier.\n");
+			}
+		}while (ageJPhysique < 8 || ageJPhysique > 122);
+		*/
+		
 		this.ageJPhysique = ageJPhysique;
 	}
 
@@ -249,8 +268,8 @@ public class Partie  {
 	}
 	
 	
-	public void setJoueursPhysiques() {
-		this.listeJoueur.add(new JoueurPhysique());
+	public void setJoueursPhysiques(int age, String nom) {
+		this.listeJoueur.add(new JoueurPhysique(age, nom));
 	}
 	
 	public void setGrainesJoueurs() {
@@ -258,6 +277,15 @@ public class Partie  {
 			Joueur lJoueur = it2.next();
 			lJoueur.setNbGraineDuJoueur(2);			
 		}
+	}
+
+	
+	public int getAgeJPhysique() {
+		return this.ageJPhysique;
+	}
+	
+	public String getNomJPhysique() {
+		return this.nomJPhysique;
 	}
 	
 }

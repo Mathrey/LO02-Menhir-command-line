@@ -19,18 +19,22 @@
 
 import java.awt.Checkbox;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import javax.swing.event.CaretEvent;
 
 
 public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
@@ -41,26 +45,24 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 	private static final long serialVersionUID = 1L;
 
 	private Partie p;
-//	
-//	Checkbox rapide = new Checkbox("RAPIDE");
-//	Checkbox avancee  = new Checkbox("AVANCEE");;
 	
 	String[] nb = { "1", "2", "3", "4", "5" };
+
 	final JComboBox<Object> nbList = new JComboBox<Object>(nb);
-	JTextField nomJoueur = new JTextField(2);
-	JTextField ageJoueur = new JTextField(2);
-//	JTextField nomJoueur;
-//	JTextField ageJoueur;
+	//final JComboBox<Integer> nbList = new JComboBox<Integer>(nb);
+//	JTextField nomJoueur = new JTextField(20);
+//	JTextField ageJoueur = new JTextField(3);
 	Checkbox rapide;
 	Checkbox avancee;
-//	JComboBox<Object> nbList;
 	
 	
 	JButton btnLancerPartie = new JButton();
 	
 	public JeuDuMenhir(){
 		super();
-		p = Partie.getInstance();
+
+		this.p = Partie.getInstance();
+
 		build(); // initialisation de la fenetre
 	}
 	
@@ -68,22 +70,10 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 		setContentPane(buildContentPane());
 	}
 	
-	private JPanel buildContentPane(){
-		
-//		String[] nb = { "1", "2", "3", "4", "5" };
-//		final JComboBox<Object> nbList = new JComboBox<Object>(nb);
-//		JTextField nomJoueur = new JTextField(2);
-//		JTextField ageJoueur = new JTextField(2);
-		
+	private JPanel buildContentPane(){		
 		
 		JPanel panel = new JPanel();
-		//panel.setLayout(new FlowLayout());
 		panel.setLayout(null);
-		
-		/*GridLayout gl = new GridLayout(3, 2);
-		gl.setHgap(10); //Cinq pixels d'espace entre les colonnes (H comme Horizontal)
-		gl.setVgap(10); //Cinq pixels d'espace entre les lignes (V comme Vertical) 
-		*/
 		
 		setTitle("Initialisation du jeu du MENHIR"); 
 		setSize(500,500); 
@@ -93,21 +83,49 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 		panel.setBackground(Color.lightGray);
 		
 		// label
+				JLabel labelTitre = new JLabel("JEU DU MENHIR 2016 ");
+				Font font = new Font("Arial",Font.BOLD,20);
+				labelTitre.setFont(font);
+				panel.add(labelTitre);
+				labelTitre.setBounds(100, 370, 230, 55);
+				
+		// label
 		JLabel label = new JLabel("Quel type de partie voulez-vous jouer ?");
+		panel.add(label);
 		label.setBounds(15, 15, 300, 15);
 		
-		// checkbox
-		Checkbox rapide = new Checkbox("RAPIDE");
-		Checkbox avancee = new Checkbox("AVANCEE");
-		//Checkbox rapide = new Checkbox("RAPIDE");
-		rapide.setBounds(50, 50, 80, 15);
-		rapide.addItemListener(this);
-		panel.add(rapide);
+		final JRadioButton rapide = new JRadioButton();
+		rapide.setText("Rapide");
+		final JRadioButton avancee = new JRadioButton();
+		avancee.setText("Avancée");
+		//rapide.setActionCommand(rapide);
+		rapide.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Vous jouez une PARTIE RAPIDE");	
+				p.setDifficulte(0);
+				avancee.setEnabled(false);
+			}
+		});
 		
-		// checkbox
-		panel.add(avancee);
+		avancee.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				System.out.println("Vous jouez une PARTIE AVANCEE");	
+				p.setDifficulte(1);
+				rapide.setEnabled(false);
+			}
+		});
+		
+		rapide.setBounds(50, 50, 80, 15);
 		avancee.setBounds(150, 50, 80, 15);
-		avancee.addItemListener(this);
+		
+		panel.add(rapide);
+		panel.add(avancee);
+		
+		
 		
 		// label	
 		JLabel label2 = new JLabel("Combien de joueurs virtuels dans la partie ?");
@@ -125,66 +143,87 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 		panel.add(label3);
 		label3.setBounds(15, 150, 300, 50);
 		
+		
+		final JTextField nomJoueur = new JTextField(20);
+		final JTextField ageJoueur = new JTextField(3);
+		
+		
 		// champ texte
 		panel.add(ageJoueur);
-		ageJoueur.setBounds(55, 200, 25, 25);
 		ageJoueur.addActionListener(this);
+		ageJoueur.setBounds(55, 200, 25, 25);
+//		ageJoueur.addActionListener(this);
 		
 		//label
 		JLabel label4 = new JLabel("Quel est votre nom ?");
 		panel.add(label4);
 		label4.setBounds(15, 220, 300, 50);
+		nomJoueur.addActionListener(this);
 		
 		// champ texte
-		nomJoueur.addActionListener(this);
+		nomJoueur.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				String nJ = nomJoueur.getText();
+				System.out.println("Nom du joueur physique : " + nJ );
+				p.setNomJPhysique(nJ);	
+			}
+		});
+		
+		ageJoueur.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				int aJ = Integer.parseInt(ageJoueur.getText());System.out.println("age du j p : " + aJ);	
+				System.out.println("Age du joueur physique : " + aJ);
+				p.setAgeJPhysique(aJ);
+			}
+		});
+		
+//		nomJoueur.addActionListener(this);
+//		ageJoueur.addActionListener(this);
 		panel.add(nomJoueur);
 		nomJoueur.setBounds(55, 270, 100, 25);
-		//nomJoueur.addCaretListener(this);
-		
 		
 		// bouton lancement de partie
 		btnLancerPartie.setText("LANCER LA PARTIE");
 		btnLancerPartie.addActionListener(this);
 		panel.add(btnLancerPartie);
-		btnLancerPartie.setBounds(15, 320, 180, 30);
+		btnLancerPartie.setBounds(15, 320, 180, 30);		
 
 		return panel;
-		}
+	}
 
-	// /!\ les SYSO ne s'affichent pas lors de l'éxecution...
-	// 		le renvoie des elements entrés par l'utilisateur n'a pas l'air de fonctionner
-	//		peut-être un problème au niveau de la récupération des valeurs qui n'est pas celles attendues 
-	//			ce qui provoquerait un conflit ?
-	// /!\
-		public void actionPerformed(ActionEvent evt) {
+	public void actionPerformed(ActionEvent evt) {
 			
 		Object source = evt.getSource();		
 		
 			if(source == btnLancerPartie){
+
 				this.p = Partie.getInstance();
 				System.out.println("Lancement de la partie");
+				p.setJoueursPhysiques(p.getAgeJPhysique(),p.getNomJPhysique());
+
 				p.lancerPartie(); 
 			}
 			
-			if(source == ageJoueur){
-				//this.p = Partie.getInstance();
-				int aJ = Integer.parseInt(ageJoueur.getText());System.out.println("age du j p : " + aJ);	
-				p.setAgeJPhysique(aJ);
-				
-			}
-			
-			if(source == nomJoueur){
-				//this.p = Partie.getInstance();
-				String nJ = nomJoueur.getText();
-				p.setNomJPhysique(nJ);
-				System.out.println("nom du j p : " + nJ);
-			}
-			
+//			if(source == ageJoueur){
+//				int aJ = Integer.parseInt(ageJoueur.getText());
+//     			System.out.println("Age du joueur physique : " + aJ);
+//				p.setAgeJPhysique(aJ);
+//			}
+//			
+//			if(source == nomJoueur){
+//				String nJ = nomJoueur.getText();
+//				System.out.println("Nom du joueur physique : " + nJ );
+//				p.setNomJPhysique(nJ);	
+//			}
+//			
 			if(source == nbList){
-				//this.p = Partie.getInstance();
-				//p.setNbrJoueursVirtuels((Integer) nbList.getSelectedItem());
-				p.setNbrJoueursVirtuels(nbList.getSelectedIndex());
-				System.out.println(nbList.getSelectedIndex());
+				nbList.setEnabled(false);
+				p.setNbrJoueursVirtuels(Integer.parseInt(nb[nbList.getSelectedIndex()]));
+				p.setJoueursVirtuels(Integer.parseInt(nb[nbList.getSelectedIndex()]));
 			}
 	}
 	
@@ -198,17 +237,9 @@ public class JeuDuMenhir extends JFrame implements ActionListener, ItemListener{
 			});
 	}
 
-	public void itemStateChanged(ItemEvent e) {
+	public void itemStateChanged(ItemEvent arg0) {
+		// TODO Auto-generated method stub
 		
-		Object source = e.getSource();
-		
-			if(e.getItem() == rapide){
-				p.setDifficulte(0);
-				System.out.println("partie rapide");
-			}else if(e.getItem() == avancee){
-				p.setDifficulte(1);
-				System.out.println("partie avancee");
-			}
-
-	}    
+	}
 }
+
