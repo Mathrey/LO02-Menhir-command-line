@@ -40,7 +40,7 @@ public class OffensiveStrategy implements Strategy {
 
 		for(Iterator<Carte> it = j.getMainDuJoueur().iterator(); it.hasNext();){
 			Carte carteActive = it.next();
-			if(carteActive.setAllie(false)){
+			if(carteActive.isAllie()==false){
 				if(j.getNbGraineDuJoueur() == 0){
 					if(carteActive.getForce(FARFADET -1, saisonEnCours) > valSuperieure){
 						choixCartePrivilegie = carteActive;

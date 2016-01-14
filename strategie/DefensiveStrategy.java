@@ -40,7 +40,7 @@ public class DefensiveStrategy implements Strategy {
 
 		for(Iterator<Carte> it = j.getMainDuJoueur().iterator(); it.hasNext();){
 			Carte carteActive = it.next();
-			if(carteActive.setAllie(false)){
+			if(carteActive.isAllie()==false){
 				if(j.getNbGraineDuJoueur() > 4){
 					if(carteActive.getForce(ENGRAIS -1, saisonEnCours) > valSuperieure){
 						choixCartePrivilegie = carteActive;
