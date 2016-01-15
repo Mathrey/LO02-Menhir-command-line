@@ -14,19 +14,27 @@ import partie.Partie;
 public abstract class Carte {
 
 	/**
-	 * Une carte se distingue par plusieurs paramètres:
 	 * Son nom dans le code
+	 */
+	private String nom;
+	/**
 	 * Son nom pour les joueurs
-	 * Ses valeurs
+	 */
+	protected String nomReel;
+	/**
+	 * Ses valeurs pour un tableau à double entrée
+	 */
+	private int[][] tableauIng;
+	/**
+	 * Ses valeurs pour un tableau à simple entrée
+	 */ 
+	private int[] tableauAlli;
+	/**
 	 * Si c'est une carte allié ou non
 	 */
 	
-	private String nom;
-	//private String cheminImage;
-	private int[][] tableauIng;
-	private int[] tableauAlli;
 	private boolean isAllie;
-	protected String nomReel;
+
 	
 	/**
 	 * Le constructeur d'une carte ingrédient

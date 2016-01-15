@@ -8,12 +8,32 @@ import java.util.Scanner;
 import partie.Manche;
 import partie.Partie;
 
+/**
+ * Cette classe permet d'instancier un joueur physique
+ * @author Mathieu & Laurie
+ *
+ */
+
 public class JoueurPhysique extends Joueur {
 
+	/**
+	 * Choix d'un joueur pour une action
+	 */
 	Joueur joueurChoisi = null;
+	/**
+	 * Un scanner pour récupérer l'entrée de l'utilisateur de type entier
+	 */
 	private Scanner scanChoix;
+	/**
+	 * Un scanner pour récupérer l'entrée de l'utilisateur de type caractère
+	 */
 	private Scanner scanNom;
 
+	/**
+	 * Constructeur d'un joueur physique avec des paramètres en entrée pour l'interface graphique
+	 * @param age Âge du joueur
+	 * @param nom Nom du joueur
+	 */
 	public JoueurPhysique(int age, String nom) {
 		super();
 		this.isJoueurPhysique = true;
@@ -21,6 +41,9 @@ public class JoueurPhysique extends Joueur {
 		this.setNom(nom);
 	}
 	
+	/**
+	 * Constructeur d'un joueur physique sans paramètres en entrée pour une interface en ligne de commande
+	 */
 	public JoueurPhysique() {
 		super();
 		this.isJoueurPhysique = false;
@@ -51,11 +74,20 @@ public class JoueurPhysique extends Joueur {
 		setNom(nomJPhysique);
 		isJoueurPhysique = true;
 	}
-
+	
+	/**
+	 * Fonction jouer carte faisant appel à la même fonction présente dans joueur
+	 * @param m Manche en cours
+	 * @param p Partie en cours
+	 */
 	public void jouerCarte(Manche m, Partie p){
 		super.jouerCarte(m, p);
 	}
 	
+	/**
+	 * Fonction permettant à un joueur physique de choisir un autre joueur
+	 * @param listDeJoueur Liste des joueurs de la partie
+	 */
 	public Joueur choisirJoueur(ArrayList<Joueur> listDeJoueur){
 		int i = 0;
 			for(Joueur j : listDeJoueur){
@@ -84,13 +116,20 @@ public class JoueurPhysique extends Joueur {
 		return listDeJoueur.get(choixJoueur);
 	}
 	
+	/**
+	 * Méthode permettant de récupérer le choix d'un utilisateur
+	 * @return Un entier entré par l'utilisateur
+	 */
 	public int getChoix() {
 		scanChoix = new Scanner(System.in);
 		int choix = scanChoix.nextInt();
 		return choix;
 	}
 	
-	
+	/**
+	 * Méthode permettant de modifier le nom du joueur physique
+	 * @param nom Nouveau nom
+	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}

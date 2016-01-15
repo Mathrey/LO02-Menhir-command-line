@@ -12,21 +12,53 @@ import carte.ChienDeGarde;
 import carte.Ingredient;
 import carte.TaupeGeante;
 
+/**
+ * Cette classe permet de créer une manche. Une partie peut être composée de plusieurs manches qui se succèdent, mais les manches sont lancées les unes après les autres
+ * @author Mathieu & Laurie
+ *
+ */
 public class Manche {
 
+	/**
+	 * La saison en cours sous forme d'entier
+	 */
 	private int saisonEnCours;
+	/**
+	 * Un tableau de chaînes de caractères correspondant aux saisons possibles
+	 */
 	private String listeSaison[] = { "printemps", "été", "automne", "hiver" };
+	/**
+	 * La liste de toutes les cartes ingrédients
+	 */
 	private LinkedList<Carte> listeCIngredients = new LinkedList<Carte>();
+	/**
+	 * La liste de toutes les cartes alliés
+	 */
 	private LinkedList<Carte> listeCAllies = new LinkedList<Carte>();
 
+	/**
+	 * Le constructeur d'une manche qui intialise les saisons à 0 (ce qui correspond d'après le tableau des saisons à la saison hiver)
+	 * @see Manche#listeSaison
+	 */
 	public Manche() {
 		saisonEnCours = 0;
 	}
-
+	
+	/**
+	 * Modifie la saison en cours
+	 * @param saisonEnCours La nouvelle saison
+	 */
 	public void setSaisonEnCours(int saisonEnCours) {
 		this.saisonEnCours = saisonEnCours;
 	}
 
+	/**
+	 * Instancie toutes les cartes dont on a besoin en fonction de la partie
+	 * Distribue 4 cartes ingrédients à tous les joueurs
+	 * Dans une partie avancée, fait appel à la fonction permettant de savoir si un joueur veut une carte allié ou recevoir deux graines
+	 * @see Manche#initialisationListeCarte()
+	 * @see Manche#demanderGrainesOuCarteAllie(Joueur)
+	 */
 	public void distribuerCarteJoueur() {
 		Partie p = Partie.getInstance();
 		if (p.getPartieAvancee()) {
@@ -64,6 +96,10 @@ public class Manche {
 		}
 	}
 
+	/**
+	 * Dmande aux joueurs s'ils veulent une carte allié ou recevoir 2 graines avant de commencer la partie
+	 * @param j Le joueur en train de recevoir ses cartes
+	 */
 	public void demanderGrainesOuCarteAllie(Joueur j) {
 		Partie p = Partie.getInstance();
 		System.out.println(j.getNom() + " choisissez-vous une carte allié (1) ou deux graines (2)?\n");
@@ -88,7 +124,12 @@ public class Manche {
 			}
 		} while (choix != 1 && choix != 2);
 	}
-
+	
+	/**
+	 * Méthode permettant de désigner le joueur qui commencera à jouer à chaque saison
+	 * D'après les règles du jeu, lors de la première manche c'est le joueur le plus jeune qui commence
+	 * Pour les manches suivantes dans une partie avancée, chaque joueur doit commencer à jouer une manche
+	 */
 	public void attribuerJoueurDeDebut() {
 		Partie p = Partie.getInstance();
 		Joueur jQuiCommence = null;
@@ -128,11 +169,22 @@ public class Manche {
 			}
 		}
 	}
-
+	
+	/**
+	 * Renvoie la saison en cours
+	 * @return La saison en cours sous forme d'entier
+	 */
 	public int getSaisonEnCours() {
 		return this.saisonEnCours;
 	}
-
+	
+	/**
+	 * Méthode qui fait se dérouler une manche en entier et jouer chaque joueur
+	 * @see Manche#attribuerJoueurDeDebut()
+	 * @see Manche#distribuerCarteJoueur()
+	 * @see Joueur#jouerCarte(Manche, Partie)
+	 * @see Manche#changerSaison()
+	 */
 	public void jouerManche() {
 		Partie p = Partie.getInstance();
 		boolean partieAvancee = p.getPartieAvancee();
@@ -182,15 +234,25 @@ public class Manche {
 			}
 		}
 	}
-
+	
+	/**
+	 * Renvoie la collection de toutes les cartes ingrédients
+	 * @return Les cartes ingrédients
+	 */
 	public LinkedList<Carte> getListeCIngredients() {
 		return this.listeCIngredients;
 	}
-
+	
+	/**
+	 * Renvoie la collection de toutes les cartes alliés
+	 * @return Les cartes alliés
+	 */
 	public LinkedList<Carte> getListeCAllies() {
 		return this.listeCAllies;
 	}
-
+	/**
+	 * Change la saison en cours
+	 */
 	public void changerSaison() {
 		int nouvSaison = this.saisonEnCours;
 		System.out.println("La saison " + this.listeSaison[this.saisonEnCours]
@@ -205,6 +267,9 @@ public class Manche {
 		this.saisonEnCours = nouvSaison;
 	}
 
+	/**
+	 * Permet de créer toutes les cartes utilisées dans le Jeu du Menhir
+	 */
 	public void initialisationListeCarte() {
 
 		int tabIng1[][] = { { 1, 1, 1, 1 }, { 2, 0, 1, 1 }, { 2, 0, 2, 0 } };

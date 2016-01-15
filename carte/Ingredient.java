@@ -7,21 +7,49 @@ import joueur.Joueur;
 import partie.Manche;
 import partie.Partie;
 
+/**
+ * La classe ingrédient hérite de carte et permet de créer les cartes de type Ingrédient
+ * @author Mathieu & Laurie
+ *
+ */
 
 public class Ingredient extends Carte {
 
+	/**
+	 * Le constructeur d'une carte ingrédient, qui fait appel au constructeur de carte pour les cartes possédant un tableau à deux entrées
+	 * @param identifiant Le code de la carte
+	 * @param tabValCarte Le tableau de valeurs de la carte en fonction des saisons et des actions
+	 * @param nom Le nom de la carte pour le joueur
+	 */
 	public Ingredient(String identifiant, int[][] tabValCarte, String nom) {
 		super(identifiant, tabValCarte, nom);
 	}
 	
+	/**
+	 * Cette méthode renvoie la force de la carte en fonction des valeurs du tableau entrées
+	 * @param action L'action correspondant à la ligne du tableau de la carte
+	 * @param saison La saison correspondant à la colonne du tableau de la carte
+	 * @return La force de la carte selon les paramètres qui est un nombre entier
+	 */
 	public int getForce(int action, int saison) {
 		return super.getForce(action, saison);
 	}
 	
+	/**
+	 * Renvoie le nom de la carte pour le joueur
+	 * @return Le nom sous forme d'une chaîne de caractères
+	 */
 	public String getNom() {
 		return super.getNom();
 	}
 	
+	/**
+	 * Cette méthode est utilisée par les joueurs physiques pour afficher et jouer une carte
+	 * @param j Joueur qui joue
+	 * @param m Manche en cours
+	 * @param p Partie en cours
+	 * @see Partie#getChoix()
+	 */
 	public void choisirAction(Joueur j, Manche m, Partie p) {
 		super.choisirAction(j, m, p);
 		System.out.println("Vous avez choisi la carte:\n");
@@ -55,12 +83,26 @@ public class Ingredient extends Carte {
 		j.getMainDuJoueur().remove(this);
 	}
 	
+	/**
+	 * Cette méthode permet d'effectuer l'action géant
+	 * Elle incrémente le nombre de graines du joueur en fonction de la force de l'action jouée selon la saison
+	 * @param j Joueur qui joue
+	 * @param m Manche en cours
+	 * @param p Partie en cours
+	 */
 	public void choisirGeant(Joueur j, Manche m, Partie p) {
 		j.setNbGraineDuJoueur(j.getNbGraineDuJoueur(), this.getForce(0,m.getSaisonEnCours())); 
 		System.out.println("Vous avez pris " + this.getForce(0, m.getSaisonEnCours()) + " graines dans le pot commun !");
 		System.out.println("Vous avez maintenant " + j.getNbGraineDuJoueur() + " graines et " + j.getNbMenhirDuJoueur() + " menhirs\n");
 	}
 	
+	/**
+	 * Cette méthode permet d'effectuer l'action engrais
+	 * Regarde le nombre de graines du joueurs et transforme selon celui-ci le nombre approprié de ces graines en ménhirs
+	 * @param j Joueur qui joue
+	 * @param m Manche en cours
+	 * @param p Partie en cours
+	 */
 	public void choisirEngrais(Joueur j, Manche m, Partie p) {
 		if(j.getNbGraineDuJoueur() == 0){
 			System.out.println("Vous n'avez pas de graines à planter!\n");
@@ -84,6 +126,16 @@ public class Ingredient extends Carte {
 		}
 	}		
 	
+	/**
+	 * Cette méthode permet d'effectuer l'action farfadet
+	 * Si la partie est une partie rapide, elle regarde le nombre de graines qu'a le joueur choisi et vole le nombre de graines selon la carte
+	 * Si c'est une partie avancée, elle regarde le nombre de Chiens de Garde du joueur et vole le nombre de graines en conséquences
+	 * @see ChienDeGarde
+	 * @see Joueur#choisirJoueur(java.util.ArrayList)
+	 * @param j Joueur qui joue
+	 * @param m Manche en cours
+	 * @param p Partie en cours
+	 */
 	public void choisirFarfadet(Joueur j, Manche m, Partie p) {
 		if(j.isJoueurPhysique) {
 			System.out.println("Veuillez choisir un joueur :\n");
@@ -173,6 +225,11 @@ public class Ingredient extends Carte {
 			
 		}
 	}
+	
+	/**
+	 * Cette méthode permet d'afficher une carte Ingrédient
+	 * @return Une chaîne de caractères affichant le nom et les valeurs de la carte
+	 */
 	
 	public String toString(){
 		StringBuffer sb = new StringBuffer();

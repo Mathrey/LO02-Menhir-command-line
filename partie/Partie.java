@@ -5,36 +5,70 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.HashSet;
-import java.util.InputMismatchException;
 
 import joueur.Joueur;
 import joueur.JoueurPhysique;
 import joueur.JoueurVirtuel;
 
-/*
- * Implémentation :
- * 		SINGLETON
- * 		MVC
- * 		Thread
+/**
+ * Cette classe permet de créer la partie
+ * @author Mathieu & Laurie
+ *
  */
 
 public class Partie  {
-
+	/**
+	 * Permet de savoir si la partie est rapide ou avancée
+	 */
 	private boolean partieAvancee;
+	/**
+	 * Liste des joueurs de la partie
+	 */
 	private ArrayList<Joueur> listeJoueur = new ArrayList<Joueur>();
+	/**
+	 * Liste des manches de la partie
+	 */
 	private ArrayList<Manche> listeManche = new ArrayList<Manche>();
 	
+	/**
+	 * Nombre de joueurs physiques
+	 */
 	private int nbJPhysique;
+	/**
+	 * Nombre de joueurs virtuels
+	 */
 	private int nbJVirtuel;
+	/**
+	 * Nombre de manches par défaut
+	 */
 	private int nbManche = 0;
+	/**
+	 * Numéro de la manche en cours
+	 */
 	private int mancheNumero = 0;
+	/**
+	 * Scanner récupérant l'entrée d'un utilisateur pour un entier
+	 */
 	private Scanner scanChoix;
 	
+	/**
+	 * Âge du joueur physique pour l'interface graphique
+	 */
 	private int ageJPhysique;
+	/**
+	 * Nom du joueur physique pour l'interface graphique
+	 */
 	private String nomJPhysique;
 	
+	/**
+	 * Instance de la partie pour le singleton
+	 */
 	private static Partie partie = null;
 	
+	/**
+	 * Implémentation du design pattern singleton
+	 * @return L'instance de partie
+	 */
 	public static Partie getInstance(){
 		
 		if(partie == null){
@@ -44,72 +78,35 @@ public class Partie  {
 		return partie;
 	}
 	
-	
+	/**
+	 * Constructeur de partie pour l'interface graphique
+	 */
 	public Partie(){
-	/*
-		System.out.println("Partie RAPIDE (0) ou avec des REGLES AVANCEES (1) ?");
-		int typePartie = -1;
-		do {
-			try{
-				typePartie = getChoix();
-			
-				if(typePartie == 0){
-				this.setDifficulte(typePartie);
-				System.out.println("Règles simples.\n");
-				
-				}else{
-					if(typePartie == 1){
-						this.setDifficulte(typePartie);
-						System.out.println("Règles avancées.\n");
-					}else{
-						System.out.println("Nombre non valide, veuillez saisir 0 ou 1");
-					}
-				}
-			}catch(InputMismatchException e) {
-							System.out.println("Merci d'entrer 0 ou 1.\n");
-					}
-
-		}while(typePartie != 0 && typePartie != 1);
-		
-		setNbrJoueursPhysiques(1);
-		setJoueursPhysiques(nbJPhysique);
-		//this.nbJPhysique = 1;
-		//this.listeJoueur.add(new JoueurPhysique());
-		
-		System.out.println("Combien y a t'il de joueur(s) virtuel(s) ?");
-		do {
-			try{
-				
-				setNbrJoueursVirtuels(getChoix());
-			
-				setJoueursVirtuels(nbJVirtuel);
-				
-			}catch(InputMismatchException e) {
-				System.out.println("Veuillez entrer un nombre entre 0 et 5.\n");				
-			}catch(IndexOutOfBoundsException e) {
-				System.out.println("Il doit y avoir au moins 1 et au maximum 5 joueurs virtuels.");
-			}
-		}while(this.nbJVirtuel <0 && this.nbJVirtuel >5);
-			
-		for (Iterator<Joueur> it2 = this.listeJoueur.iterator(); it2.hasNext();) {
-			Joueur lJoueur = it2.next();
-			lJoueur.setNbGraineDuJoueur(2);			
-		}
-	 
-		
-		this.setGrainesJoueurs();
-	 	*/
+	
 	}
 		
-
+	/**
+	 * Renvoie le nombre de joueur physique
+	 * @return L'entier de nombre de joueurs physiques
+	 */
 	public int getNbJPhysique(){
 		return this.nbJPhysique;
 	}
 	
+	/**
+	 * Renvoie le nombre de joueurs virtuels
+	 * @return L'entier de nombre de joueurs virtuels
+	 */
 	public int getNbJVirtuel(){
 		return this.nbJVirtuel;
 	}
-
+	
+	/**
+	 * Méthode permettant de lancer la partie, de dérouler toutes les manches et d'afficher les gagnants
+	 * @see partie.Manche
+	 * @see Partie#afficherClassement()
+	 * @see Partie#afficherGagnants()
+	 */
 	public void lancerPartie() {
 		
 		if(this.partieAvancee){
@@ -142,7 +139,9 @@ public class Partie  {
 			this.afficherGagnants();
 			}
 	}
-
+	/**
+	 * Méthode affichant les gagnants d'une partie rapide
+	 */
 	public void afficherGagnants() {
 		HashSet<Joueur> joueursGagnants = new HashSet<Joueur>();
 		int menhirMax = -1;
@@ -173,7 +172,9 @@ public class Partie  {
 			System.out.print(gagnant.getNom() + " avec " +gagnant.getNbMenhirDuJoueur()+ " ménhir(s) et " +gagnant.getNbGraineDuJoueur()+ " graine(s).\n");
 		}
 	}
-	
+	/**
+	 * Méhode affichant le classement des joueurs dans une partie avancée
+	 */
 	public void afficherClassement() {
 		ArrayList<Joueur> classement = new ArrayList<Joueur>();
 		int position = 0;
@@ -199,24 +200,43 @@ public class Partie  {
 		}
 	}
 	
+	/**
+	 * Renvoie si la partie est avancée ou non
+	 * @return Vrai pour une partie avancée, faux si non
+	 */
 	public boolean getPartieAvancee() {
 		return partieAvancee;
 	}
-	
+	/**
+	 * Renvoie la liste des joueurs de la partie
+	 * @return Collection des joueurs de la partie
+	 */
 	public ArrayList<Joueur> getListeJoueur(){
 		return listeJoueur;
 	}
 	
+	/**
+	 * Renvoie le numéro de la manche en cours
+	 * @return Entier correspondant au numéro de la manche
+	 */
 	public int getMancheNumero() {
 		return this.mancheNumero;
 	}
 	
+	/**
+	 * Méthode permettant de récupérer l'entrée d'un utilisateur pour un choix d'entier
+	 * Cette méthode est entourée d'un try catch là où elle est implémentée
+	 * @return Renvoie l'entier entré par l'utilisateur
+	 */
 	public int getChoix() {
 		scanChoix = new Scanner(System.in);
 		int choix = scanChoix.nextInt();
 		return choix;
 	}
-	
+	/**
+	 * Permet de changer la difficulté de la partie
+	 * @param dif 0 pour une partie rapide, 1 pour une partie avancée
+	 */
 	public void setDifficulte(int dif) {
 		if (dif == 0) {
 			this.partieAvancee = false;
@@ -225,59 +245,69 @@ public class Partie  {
 		}
 	}
 	
+	/**
+	 * Modifie le nombre de joueurs virtuels
+	 * @param nbr Nouveau nombre de joueurs virtuels
+	 */
 	public void setNbrJoueursVirtuels(int nbr) {
 		this.nbJVirtuel = nbr;
 	}
-	
+	/**
+	 * Crée les instances des joueurs virtuels en fonction du nombre de ceux-ci
+	 * @param nbr Nombre de joueurs virtuels à créer
+	 */
 	public void setJoueursVirtuels(int nbr) {
 		for(int i=1; i<= nbr; i++){
 			this.listeJoueur.add(new JoueurVirtuel(i));
 		}
 	}
 	
+	/**
+	 * Modifie le nombre de joueurs physiques
+	 * @param nbr Nouveau nombre de joueurs physiques
+	 */
 	public void setNbrJoueursPhysiques(int nbr) {
 		this.nbJPhysique = nbr;
 	}
 	
+	/**
+	 * Crée les instances des joueurs physiques en fonction du nombre de ceux-ci
+	 * @param nbr Nombre de joueurs physiques à créer
+	 */
 	public void setJoueursPhysiques(int nbr) {
 		for(int i=1; i<= nbr; i++){
 			this.listeJoueur.add(new JoueurPhysique());
 		}
 	}
 
-
+	/**
+	 * Modifie l'âge du joueur physique
+	 * @param ageJPhysique Nouvel âge du joueur physique
+	 */
 	public void setAgeJPhysique(int ageJPhysique) {
-		
-		/*do {
-			try {
-				ageJPhysique = getChoix();
-				if (ageJPhysique < 8) {
-					System.out.println("Vous êtes un peu jeune pour jouer! Le jeu du Menhir est pour les 8 ans et plus.\nEntrez un autre âge.\n");
-				}
-				else{
-					if (ageJPhysique > 122) {
-						System.out.println("Vous êtes plus vieux que le record de longévité humaine!\nSérieusement, entrez votre VRAI âge. :)\n");
-					}
-				}
-			}catch(InputMismatchException e) {
-				System.out.println("Merci d'entrer un nombre entier.\n");
-			}
-		}while (ageJPhysique < 8 || ageJPhysique > 122);
-		*/
-		
 		this.ageJPhysique = ageJPhysique;
 	}
 
-
+	/**
+	 * Modifie le nom du joueur physique
+	 * @param nomJPhysique Nouveau nom du joueur physique
+	 */
 	public void setNomJPhysique(String nomJPhysique) {
 		this.nomJPhysique = nomJPhysique;
 	}
 	
-	
+	/**
+	 * Crée les instances des joueurs physiques en fonction du nombre de ceux-ci avec des paramètres en entrée
+	 * @param age Âge du joueur physique
+	 * @param nom Nom du joueur physique
+	 */
 	public void setJoueursPhysiques(int age, String nom) {
 		this.listeJoueur.add(new JoueurPhysique(age, nom));
 	}
 	
+	/**
+	 * Permet de mettre à 2 le nombre de graines de chaque joueur
+	 */
 	public void setGrainesJoueurs() {
 		for (Iterator<Joueur> it2 = this.listeJoueur.iterator(); it2.hasNext();) {
 			Joueur lJoueur = it2.next();
@@ -285,11 +315,18 @@ public class Partie  {
 		}
 	}
 
-	
+	/**
+	 * Retourne l'âge du joueur physique
+	 * @return L'entier correspondant à l'âge du joueur physique
+	 */
 	public int getAgeJPhysique() {
 		return this.ageJPhysique;
 	}
 	
+	/**
+	 * Retourne le nom du joueur physique
+	 * @return Chaîne de caractère correspondant au nom du joueur physique
+	 */
 	public String getNomJPhysique() {
 		return this.nomJPhysique;
 	}
